@@ -1,0 +1,58 @@
+/* Sidebar Styles */
+aside {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  transition: width 0.3s ease-in-out;
+}
+
+/* Navigation Links */
+nav a {
+  position: relative;
+  padding-left: 1rem;
+  color: #f1f5f9;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #60a5fa;
+}
+
+nav a.ng-star-inserted.ng-component.active,
+nav a:has(.active) {
+  background-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: inset 4px 0 0 #60a5fa;
+}
+
+/* Icon Styling */
+i-lucide {
+  transition: transform 0.3s ease;
+}
+
+nav a:hover i-lucide {
+  transform: translateX(4px);
+}
+
+/* User Section */
+.border-b {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth scrollbar */
+nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

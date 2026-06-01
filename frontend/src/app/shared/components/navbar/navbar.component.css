@@ -1,0 +1,57 @@
+/* Navbar Styles */
+nav {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.dark nav {
+  background-color: rgba(15, 23, 42, 0.95);
+}
+
+/* Search Input */
+input[placeholder="Rechercher..."] {
+  transition: all 0.3s ease;
+}
+
+input[placeholder="Rechercher..."]:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Icon Button Hover */
+button[class*="p-2"] {
+  transition: all 0.3s ease;
+}
+
+button[class*="p-2"]:hover {
+  transform: scale(1.05);
+}
+
+/* Profile Dropdown Animation */
+[class*="absolute"][class*="right"] {
+  animation: slideDownFade 0.2s ease-out forwards;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Notification Dot */
+.absolute.top-1.right-1 {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}

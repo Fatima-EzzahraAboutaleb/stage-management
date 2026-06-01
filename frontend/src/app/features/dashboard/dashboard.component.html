@@ -1,0 +1,117 @@
+<div class="space-y-6 animate-fade-in">
+  <!-- Header -->
+  <div>
+    <h1 class="text-3xl font-bold text-primary dark:text-secondary">Tableau de bord</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-2">Vue d&apos;ensemble de vos stages et statistiques</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex items-center justify-center h-96">
+    <div class="text-center">
+      <i-lucide name="loader" class="w-12 h-12 animate-spin text-accent mx-auto mb-4"></i-lucide>
+      <p class="text-gray-600 dark:text-gray-400">Chargement des données...</p>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div *ngIf="!isLoading && stats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Total Stages Card -->
+    <div class="card p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-gray-600 dark:text-gray-400 font-medium">Total Stages</h3>
+        <div class="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+          <i-lucide name="briefcase" class="w-6 h-6 text-accent"></i-lucide>
+        </div>
+      </div>
+      <p class="text-3xl font-bold text-primary dark:text-secondary">{{ stats.totalStages }}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Stages créés</p>
+    </div>
+
+    <!-- Total Étudiants Card -->
+    <div class="card p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-gray-600 dark:text-gray-400 font-medium">Étudiants</h3>
+        <div class="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900 flex items-center justify-center">
+          <i-lucide name="users" class="w-6 h-6 text-success"></i-lucide>
+        </div>
+      </div>
+      <p class="text-3xl font-bold text-primary dark:text-secondary">{{ stats.totalEtudiants }}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Étudiants inscrits</p>
+    </div>
+
+    <!-- Total Entreprises Card -->
+    <div class="card p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-gray-600 dark:text-gray-400 font-medium">Entreprises</h3>
+        <div class="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900 flex items-center justify-center">
+          <i-lucide name="building-2" class="w-6 h-6 text-purple-600"></i-lucide>
+        </div>
+      </div>
+      <p class="text-3xl font-bold text-primary dark:text-secondary">{{ stats.totalEntreprises }}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Entreprises partenaires</p>
+    </div>
+
+    <!-- Total Encadrants Card -->
+    <div class="card p-6 hover:shadow-lg transition-shadow">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-gray-600 dark:text-gray-400 font-medium">Encadrants</h3>
+        <div class="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900 flex items-center justify-center">
+          <i-lucide name="user-check" class="w-6 h-6 text-warning"></i-lucide>
+        </div>
+      </div>
+      <p class="text-3xl font-bold text-primary dark:text-secondary">{{ stats.totalEncadrants }}</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Encadrants académiques</p>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div *ngIf="!isLoading && stats" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Status Chart -->
+    <div class="card p-6">
+      <h3 class="text-lg font-semibold text-primary dark:text-secondary mb-4">État des stages</h3>
+      <div class="h-64">
+        <canvas #statusChart
+                baseChart
+                [data]="statusChartConfig.data"
+                [options]="statusChartConfig.options"
+                [type]="statusChartConfig.type"
+                class="w-full"></canvas>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card p-6">
+      <h3 class="text-lg font-semibold text-primary dark:text-secondary mb-4">Résumé</h3>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900 rounded-lg">
+          <div class="flex items-center gap-3">
+            <i-lucide name="play-circle" class="w-5 h-5 text-accent"></i-lucide>
+            <span class="text-sm font-medium">Stages en cours</span>
+          </div>
+          <span class="text-lg font-bold text-accent">{{ stats.stagesEnCours }}</span>
+        </div>
+
+        <div class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900 rounded-lg">
+          <div class="flex items-center gap-3">
+            <i-lucide name="check-circle" class="w-5 h-5 text-success"></i-lucide>
+            <span class="text-sm font-medium">Stages terminés</span>
+          </div>
+          <span class="text-lg font-bold text-success">{{ stats.stagesTermines }}</span>
+        </div>
+
+        <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            <strong>Taux de complétion:</strong> {{ stats.totalStages > 0 ? ((stats.stagesTermines / stats.totalStages) * 100 | number:'1.0-0') : 0 }}%
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !stats" class="card p-12 text-center">
+    <i-lucide name="inbox" class="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4"></i-lucide>
+    <h3 class="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">Aucune donnée</h3>
+    <p class="text-gray-500 dark:text-gray-500">Commencez par créer vos premiers stages et étudiants</p>
+  </div>
+</div>

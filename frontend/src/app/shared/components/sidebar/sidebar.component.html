@@ -1,0 +1,40 @@
+<aside [ngClass]="{'w-64': isOpen, 'w-20': !isOpen}" class="fixed left-0 top-0 h-screen bg-gradient-to-b from-primary to-primary-light text-secondary transition-all duration-300 shadow-lg flex flex-col z-50">
+  
+  <!-- Logo -->
+  <div class="p-4 border-b border-primary-light flex items-center justify-between">
+    <span *ngIf="isOpen" class="text-xl font-bold">PFE</span>
+    <button (click)="toggleSidebar()" class="p-2 hover:bg-primary-light rounded-lg transition-colors">
+      <i-lucide name="menu" class="w-5 h-5"></i-lucide>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 overflow-y-auto p-3 space-y-2">
+    <a *ngFor="let item of navItems"
+       *ngIf="isNavItemVisible(item)"
+       [routerLink]="item.route"
+       routerLinkActive="bg-accent"
+       class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-primary-light transition-colors group"
+       [ngClass]="{'justify-center': !isOpen}">
+      <i-lucide [name]="item.icon" class="w-5 h-5 flex-shrink-0"></i-lucide>
+      <span *ngIf="isOpen" class="text-sm font-medium">{{ item.label }}</span>
+    </a>
+  </nav>
+
+  <!-- User Info -->
+  <div class="p-4 border-t border-primary-light">
+    <div class="flex items-center gap-3" [ngClass]="{'justify-center': !isOpen}">
+      <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+        <span class="text-white font-bold">{{ currentUser?.prenom?.charAt(0) }}</span>
+      </div>
+      <div *ngIf="isOpen" class="flex-1 min-w-0">
+        <p class="text-sm font-medium truncate">{{ currentUser?.nom }}</p>
+        <p class="text-xs text-gray-300 truncate">{{ currentUser?.role }}</p>
+      </div>
+    </div>
+    <button (click)="logout()" class="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-sm font-medium transition-colors" [ngClass]="{'p-2': !isOpen}">
+      <i-lucide name="log-out" class="w-4 h-4"></i-lucide>
+      <span *ngIf="isOpen">Déconnexion</span>
+    </button>
+  </div>
+</aside>

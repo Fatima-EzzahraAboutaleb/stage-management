@@ -1,0 +1,126 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-gray-50 dark:from-primary dark:to-primary-light p-4">
+  <div class="w-full max-w-md">
+    <!-- Card -->
+    <div class="card p-8">
+      <!-- Logo -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-accent to-accent-light mb-4">
+          <i-lucide name="briefcase" class="w-8 h-8 text-white"></i-lucide>
+        </div>
+        <h1 class="text-3xl font-bold text-primary dark:text-secondary mb-2">PFE Management</h1>
+        <p class="text-gray-600 dark:text-gray-400">Gestion des stages PFE</p>
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-primary dark:text-secondary mb-6 text-center">Inscription</h2>
+
+      <!-- Form -->
+      <form (ngSubmit)="handleRegister()" class="space-y-4">
+        <!-- Name Row -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-medium text-primary dark:text-secondary mb-2">Prénom</label>
+            <input type="text"
+                   [(ngModel)]="prenom"
+                   name="prenom"
+                   placeholder="Jean"
+                   class="input"
+                   [disabled]="isLoading">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-primary dark:text-secondary mb-2">Nom</label>
+            <input type="text"
+                   [(ngModel)]="nom"
+                   name="nom"
+                   placeholder="Dupont"
+                   class="input"
+                   [disabled]="isLoading">
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <div>
+          <label class="block text-sm font-medium text-primary dark:text-secondary mb-2">Email</label>
+          <input type="email"
+                 [(ngModel)]="email"
+                 name="email"
+                 placeholder="jean.dupont@example.com"
+                 class="input"
+                 [disabled]="isLoading">
+        </div>
+
+        <!-- Role Select -->
+        <div>
+          <label class="block text-sm font-medium text-primary dark:text-secondary mb-2">Rôle</label>
+          <select [(ngModel)]="role" name="role" class="select" [disabled]="isLoading">
+            <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+          </select>
+        </div>
+
+        <!-- Password Input -->
+        <div>
+          <label class="block text-sm font-medium text-primary dark:text-secondary mb-2">Mot de passe</label>
+          <div class="relative">
+            <input [type]="showPassword ? 'text' : 'password'"
+                   [(ngModel)]="password"
+                   name="password"
+                   placeholder="Minimum 6 caractères"
+                   class="input"
+                   [disabled]="isLoading">
+            <button type="button"
+                    (click)="togglePasswordVisibility()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary dark:hover:text-secondary">
+              <i-lucide *ngIf="!showPassword" name="eye" class="w-5 h-5"></i-lucide>
+              <i-lucide *ngIf="showPassword" name="eye-off" class="w-5 h-5"></i-lucide>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password Input -->
+        <div>
+          <label class="block text-sm font-medium text-primary dark:text-secondary mb-2">Confirmer le mot de passe</label>
+          <input [type]="showPassword ? 'text' : 'password'"
+                 [(ngModel)]="confirmPassword"
+                 name="confirmPassword"
+                 placeholder="Confirmer votre mot de passe"
+                 class="input"
+                 [disabled]="isLoading">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+                [disabled]="isLoading"
+                class="w-full btn btn-primary mt-6">
+          <span *ngIf="!isLoading">S&apos;inscrire</span>
+          <span *ngIf="isLoading" class="flex items-center justify-center gap-2">
+            <i-lucide name="loader" class="w-4 h-4 animate-spin"></i-lucide>
+            Inscription en cours...
+          </span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-secondary dark:bg-primary-light text-gray-600 dark:text-gray-400">Ou</span>
+        </div>
+      </div>
+
+      <!-- Login Link -->
+      <p class="text-center text-gray-600 dark:text-gray-400">
+        Déjà inscrit?
+        <a routerLink="/login" class="text-accent font-semibold hover:text-accent-light transition-colors">
+          Se connecter
+        </a>
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
+      © 2024 PFE Management. Tous droits réservés.
+    </p>
+  </div>
+</div>

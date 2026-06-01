@@ -1,0 +1,56 @@
+<nav class="sticky top-0 z-40 w-full bg-white dark:bg-primary-light border-b border-gray-200 dark:border-primary shadow-sm">
+  <div class="px-6 py-4 flex items-center justify-between gap-4">
+    
+    <!-- Search Bar -->
+    <div class="flex-1 max-w-md">
+      <div class="relative">
+        <input type="text"
+               [(ngModel)]="searchQuery"
+               (keyup.enter)="handleSearch()"
+               placeholder="Rechercher..."
+               class="input pl-10 py-2 bg-gray-100 dark:bg-primary-light border-0 rounded-full">
+        <i-lucide name="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i-lucide>
+      </div>
+    </div>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-4">
+      
+      <!-- Dark Mode Toggle -->
+      <button (click)="toggleDarkMode()"
+              class="p-2 hover:bg-gray-100 dark:hover:bg-primary rounded-lg transition-colors">
+        <i-lucide *ngIf="!isDarkMode" name="moon" class="w-5 h-5"></i-lucide>
+        <i-lucide *ngIf="isDarkMode" name="sun" class="w-5 h-5"></i-lucide>
+      </button>
+
+      <!-- Notifications -->
+      <button class="relative p-2 hover:bg-gray-100 dark:hover:bg-primary rounded-lg transition-colors">
+        <i-lucide name="bell" class="w-5 h-5"></i-lucide>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+      </button>
+
+      <!-- Profile Menu -->
+      <div class="relative">
+        <button (click)="toggleProfileMenu()"
+                class="p-2 hover:bg-gray-100 dark:hover:bg-primary rounded-lg transition-colors">
+          <i-lucide name="user" class="w-5 h-5"></i-lucide>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div *ngIf="showProfileMenu"
+             class="absolute right-0 mt-2 w-48 bg-white dark:bg-primary-light rounded-lg shadow-lg py-2 animate-fade-in">
+          <button (click)="navigateToProfile()"
+                  class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-primary flex items-center gap-3 transition-colors">
+            <i-lucide name="user" class="w-4 h-4"></i-lucide>
+            <span>Mon Profil</span>
+          </button>
+          <button (click)="logout()"
+                  class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-primary text-red-600 flex items-center gap-3 transition-colors">
+            <i-lucide name="log-out" class="w-4 h-4"></i-lucide>
+            <span>Déconnexion</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
