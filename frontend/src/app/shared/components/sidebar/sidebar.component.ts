@@ -26,6 +26,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   currentUser: CurrentUser | null = null;
   private destroy$ = new Subject<void>();
 
+  // Each item's roles determine whether it is shown for the current user.
   navItems: NavItem[] = [
     { label: 'Tableau de bord', route: 'home', icon: 'layout-grid', roles: ['ADMIN', 'ENCADRANT', 'ETUDIANT'] },
     { label: 'Stages', route: 'stages', icon: 'briefcase', roles: ['ADMIN', 'ENCADRANT', 'ETUDIANT'] },

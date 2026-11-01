@@ -22,6 +22,7 @@ export class AuthService {
   login(credentials: LoginRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap(response => {
+        // The API may return authentication data directly or inside a data envelope.
         if (response && response.data && response.data.token) {
           this.setToken(response.data);
           this.currentUserSubject.next(response.data);
@@ -39,6 +40,7 @@ export class AuthService {
   register(userData: RegisterRequest): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/auth/register`, userData).pipe(
       tap(response => {
+        // Keep registration compatible with both authentication response shapes.
         if (response && response.data && response.data.token) {
           this.setToken(response.data);
           this.currentUserSubject.next(response.data);

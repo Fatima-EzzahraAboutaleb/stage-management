@@ -60,6 +60,7 @@ export class StagesListComponent implements OnInit {
       const matchesStatut = !this.selectedStatut || stage.statut === this.selectedStatut;
       return matchesSearch && matchesStatut;
     });
+    // Filtered results may no longer include the current page.
     this.currentPage = 1;
   }
 

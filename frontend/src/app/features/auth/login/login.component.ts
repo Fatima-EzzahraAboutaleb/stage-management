@@ -52,6 +52,7 @@ export class LoginComponent {
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
         this.toastr.success('Connexion réussie!');
+        // Return users to the protected page they originally requested.
         const redirectUrl = localStorage.getItem('redirectUrl') || '/dashboard';
         localStorage.removeItem('redirectUrl');
         this.router.navigate([redirectUrl]);

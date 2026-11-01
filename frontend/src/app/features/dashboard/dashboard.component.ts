@@ -101,6 +101,7 @@ export class DashboardComponent implements OnInit {
 
     // Update status chart
     if (this.statusChartConfig.data && this.statusChartConfig.data.datasets) {
+      // The API has no proposed/canceled breakdown, so the remainder is proposed and canceled stays at zero.
       this.statusChartConfig.data.datasets[0].data = [
         this.stats.stagesEnCours,
         this.stats.stagesTermines,
